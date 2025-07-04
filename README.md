@@ -121,8 +121,11 @@ CUSTOM_PORT=158
 ```
 Меняем порты:
 ```bash
-sed -i -e "s%^proxy_app = .*%proxy_app = \"tcp://127.0.0.1:${CUSTOM_PORT}58\"%" ... $HOME/.arkeo/config/config.toml
-sed -i -e "s%^address = .*%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" ... $HOME/.arkeo/config/app.toml
+export CUSTOM_PORT=31
+# REST API порт
+sed -i "136s%.*%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" $HOME/.arkeo/config/app.toml
+# gRPC порт
+sed -i "163s%.*%address = \"tcp://localhost:${CUSTOM_PORT}90\"%" $HOME/.arkeo/config/app.toml
 ```
 ```bash
 arkeod config set client node tcp://localhost:${CUSTOM_PORT}57
