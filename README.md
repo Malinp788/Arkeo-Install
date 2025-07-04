@@ -80,13 +80,15 @@ arkeod config set client node tcp://localhost:26657
 ---
 ## 👑 6. Инициализация ноды
 ```bash
-arkeod init <ВАШ_МОНИКЕР> --chain-id arkeo-main-v1
+cd
+MONIKER=<ВАШ_МОНИКЕР>
+arkeod init $MONIKER --chain-id arkeo-main-v1
 ```
 ---
 ## 📥 7. Загрузка genesis и addrbook
 ```bash
-curl -Ls https://snapshots3.stakevillage.net/arkeo-main-v1/genesis.json > $HOME/.arkeo/config/genesis.json
-curl -Ls https://snapshots3.stakevillage.net/arkeo-main-v1/addrbook.json > $HOME/.arkeo/config/addrbook.json
+curl -Ls -o $HOME/.arkeo/config/addrbook.json https://snapshots.polkachu.com/addrbook/arkeo/addrbook.json
+curl -Ls -o $HOME/.arkeo/config/genesis.json https://snapshots.polkachu.com/genesis/arkeo/genesis.json
 ```
 ---
 ## 💫 8. Сиды и пиры
