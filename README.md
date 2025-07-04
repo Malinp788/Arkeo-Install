@@ -1,4 +1,4 @@
-# 🚀 Полный гайд по установке ноды Arkeo Mainnet
+# ✨ Полный гайд по установке ноды Arkeo Mainnet от прекрасной девушки 🌸
 Для установки и запуска ноды Arkeo в mainnet требуются следующие минимальные аппаратные и программные требования:
 ### ***аппаратные требования:***
 Процессор: 4 ядра CPU (рекомендуется высокая тактовая частота для лучшей производительности).
@@ -8,13 +8,15 @@
 Ubuntu 20.04/22.04, права root обязательны.
 ### ***стабильное широкополосное интернет-соединение с минимальной скоростью загрузки/выгрузки 10 МБ/с.***
 ---
-## 🔧 1. Установка системных пакетов
+> *Пусть ваши ноды будут так же прекрасны, как моя улыбка 💄💻*
+---
+## 💅 1. Установка системных пакетов
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl git jq lz4 npm build-essential -y
 ```
 ---
-## ⚙️ 2. Установка Go
+## 👠 2. Установка Go
 ```bash
 sudo rm -rf /usr/local/go
 curl -Ls https://go.dev/dl/go1.23.0.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
@@ -24,7 +26,7 @@ source $HOME/.bash_profile
 go version
 ```
 ---
-## 📦 3. Сборка бинарника Arkeo
+## 💎 3. Сборка бинарника Arkeo
 ```bash
 cd ~
 rm -rf arkeo
@@ -36,7 +38,7 @@ make install
 /root/go/bin/arkeod version
 ```
 ---
-## 🛠 4. Настройка systemd-сервиса
+## 👜 4. Настройка systemd-сервиса
 ```bash
 tee /etc/systemd/system/arkeod.service > /dev/null << EOF
 [Unit]
@@ -55,6 +57,7 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod
@@ -67,7 +70,7 @@ arkeod config set client keyring-backend file
 arkeod config set client node tcp://localhost:26657
 ```
 ---
-## 🚀 6. Инициализация ноды
+## 👑 6. Инициализация ноды
 ```bash
 arkeod init <ВАШ_МОНИКЕР> --chain-id arkeo-main-v1
 ```
@@ -78,7 +81,7 @@ curl -Ls https://snapshots3.stakevillage.net/arkeo-main-v1/genesis.json > $HOME/
 curl -Ls https://snapshots3.stakevillage.net/arkeo-main-v1/addrbook.json > $HOME/.arkeo/config/addrbook.json
 ```
 ---
-## 🔗 8. Сиды и пиры
+## 💫 8. Сиды и пиры
 ```bash
 seeds="4d2c67a1d732679826b2f71c833e94b3718c2b50@seed2.arkeo.network:26656,416bd4379fa4fa3e76e59e4415396f727463142e@seed.arkeo.network:26656"
 sed -i -e "s|^seeds *=.*|seeds = \"$seeds\"|" $HOME/.arkeo/config/config.toml
@@ -87,12 +90,12 @@ peers="e21ebcb0b2694e7b316f2f8de883300cffc93b32@peer1.arkeo.network:26656,..."
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$peers\"|" $HOME/.arkeo/config/config.toml
 ```
 ---
-## ⛽ 9. Минимальная цена за газ
+## 💖 9. Минимальная цена за газ
 ```bash
 sed -i -e "s|^minimum-gas-prices *=.*|minimum-gas-prices = \"0.001uarkeo\"|" $HOME/.arkeo/config/app.toml
 ```
 ---
-## 🧹 10. Pruning (оптимизация хранения)
+## 💼 10. Pruning (оптимизация хранения)
 ```bash
 sed -i \
   -e 's|^pruning *=.*|pruning = "custom"|' \
@@ -102,7 +105,7 @@ sed -i \
   $HOME/.arkeo/config/app.toml
 ```
 ---
-## 🛡 11. Кастомные порты (опционально)
+## 💋 11. Кастомные порты (опционально)
 ```bash
 CUSTOM_PORT=158
 ```
@@ -115,10 +118,11 @@ sed -i -e "s%^address = .*%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" ... 
 arkeod config set client node tcp://localhost:${CUSTOM_PORT}57
 ```
 ---
-## ✅ 12. Запуск ноды
+## 🌸 12. Запуск ноды
 ```bash
 sudo systemctl start arkeod
 sudo journalctl -u arkeod -f --no-hostname -o cat
 ```
 ---
-# 🏁 Готово! Нода Arkeo установлена и синхронизируется.
+# 🎀 Готово! Ваша нода Arkeo установлена и синхронизируется.
+> *Даже самые серьёзные блокчейны нуждаются в женском подходе — красиво, аккуратно и со вкусом!* 💖 
