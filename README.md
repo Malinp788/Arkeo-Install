@@ -135,7 +135,15 @@ sed -i -E "s%ws-address = \"0.0.0.0:[0-9]+\"%ws-address = \"0.0.0.0:${CUSTOM_POR
 arkeod config set client node tcp://localhost:${CUSTOM_PORT}57
 ```
 ---
-## 🌸 12. Запуск ноды
+## 💫 12. Подробная проверка с выводом строк и портов:
+```bash
+echo "config.toml — порты и адреса:"
+grep -E "proxy_app|laddr|pprof_laddr|prometheus_listen_addr" -n $HOME/.arkeo/config/config.toml
+echo -e "\napp.toml — адреса и порты:"
+grep -E "address|ws-address" -n $HOME/.arkeo/config/app.toml
+```
+---
+## 🌸 13. Запуск ноды
 ```bash
 sudo systemctl start arkeod
 sudo journalctl -u arkeod -f --no-hostname -o cat
