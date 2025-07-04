@@ -117,13 +117,21 @@ sed -i \
 ## 💋 11. Кастомные порты (опционально)
 Меняем порты:
 ```bash
-export CUSTOM_PORT=153
-# REST API порт
-sed -i "136s%.*%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" $HOME/.arkeo/config/app.toml
-# gRPC порт
-sed -i "163s%.*%address = \"tcp://localhost:${CUSTOM_PORT}90\"%" $HOME/.arkeo/config/app.toml
-```
-```bash
+export CUSTOM_PORT=163  # твой порт
+### config.toml ###
+sed -i -E "s%proxy_app = \".*\"%proxy_app = \"tcp://127.0.0.1:${CUSTOM_PORT}58\"%" $HOME/.arkeo/config/config.toml
+sed -i -E "s%laddr = \"tcp://127.0.0.1:[0-9]+\"%laddr = \"tcp://127.0.0.1:${CUSTOM_PORT}57\"%" $HOME/.arkeo/config/config.toml
+sed -i -E "s%pprof_laddr = \".*\"%pprof_laddr = \"localhost:${CUSTOM_PORT}60\"%" $HOME/.arkeo/config/config.toml
+sed -i -E "s%laddr = \"tcp://0.0.0.0:[0-9]+\"%laddr = \"tcp://0.0.0.0:${CUSTOM_PORT}56\"%" $HOME/.arkeo/config/config.toml
+sed -i -E "s%prometheus_listen_addr = \".*\"%prometheus_listen_addr = \":${CUSTOM_PORT}66\"%" $HOME/.arkeo/config/config.toml
+### app.toml ###
+sed -i -E "s%address = \"tcp://localhost:[0-9]+\"%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" $HOME/.arkeo/config/app.toml
+sed -i -E "s%address = \":[0-9]+\"%address = \":${CUSTOM_PORT}80\"%" $HOME/.arkeo/config/app.toml
+sed -i -E "s%address = \"localhost:[0-9]+\"%address = \"localhost:${CUSTOM_PORT}90\"%" $HOME/.arkeo/config/app.toml
+sed -i -E "s%address = \"localhost:[0-9]+\"%address = \"localhost:${CUSTOM_PORT}91\"%" $HOME/.arkeo/config/app.toml
+sed -i -E "s%address = \"0.0.0.0:[0-9]+\"%address = \"0.0.0.0:${CUSTOM_PORT}45\"%" $HOME/.arkeo/config/app.toml
+sed -i -E "s%ws-address = \"0.0.0.0:[0-9]+\"%ws-address = \"0.0.0.0:${CUSTOM_PORT}46\"%" $HOME/.arkeo/config/app.toml
+### Настройка CLI адреса узла ###
 arkeod config set client node tcp://localhost:${CUSTOM_PORT}57
 ```
 ---
