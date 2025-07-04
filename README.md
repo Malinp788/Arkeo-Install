@@ -18,11 +18,19 @@ sudo apt install curl git jq lz4 npm build-essential -y
 ---
 ## 👠 2. Установка Go
 ```bash
+### Удаляем старую версию Go (если была)
 sudo rm -rf /usr/local/go
+### Скачиваем и устанавливаем Go 1.23.0
 curl -Ls https://go.dev/dl/go1.23.0.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+### Создаём файл с переменной окружения для системного уровня
 echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh
+### Добавляем переменную окружения в пользовательский профиль
+echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
 echo 'export PATH=$PATH:$HOME/go/bin' >> $HOME/.profile
-source $HOME/.bash_profile
+### Применяем изменения текущей сессии
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/go/bin
+### Проверяем версию Go
 go version
 ```
 ---
