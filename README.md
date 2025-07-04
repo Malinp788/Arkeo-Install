@@ -65,7 +65,6 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
-
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod
@@ -116,12 +115,9 @@ sed -i \
 ```
 ---
 ## 💋 11. Кастомные порты (опционально)
-```bash
-CUSTOM_PORT=158
-```
 Меняем порты:
 ```bash
-export CUSTOM_PORT=31
+export CUSTOM_PORT=153
 # REST API порт
 sed -i "136s%.*%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" $HOME/.arkeo/config/app.toml
 # gRPC порт
