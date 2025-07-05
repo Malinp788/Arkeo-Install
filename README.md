@@ -16,7 +16,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install curl git jq lz4 npm build-essential -y
 ```
 ---
-## 👠 2. Установка Go
+## 👑 2. Установка Go
 ```bash
 ### Удаляем старую версию Go (если была)
 sudo rm -rf /usr/local/go
@@ -80,7 +80,7 @@ arkeod config set client node tcp://localhost:26657
 ## 👑 6. Инициализация ноды
 ```bash
 cd
-MONIKER=<ВАШ_МОНИКЕР>
+MONIKER=VashMoniker
 arkeod init $MONIKER --chain-id arkeo-main-v1
 ```
 ---
