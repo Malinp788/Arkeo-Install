@@ -93,8 +93,8 @@ curl -Ls -o $HOME/.arkeo/config/genesis.json https://snapshots.polkachu.com/gene
 ## 💫 8. Сиды и пиры
 ```bash
 seeds="4d2c67a1d732679826b2f71c833e94b3718c2b50@seed2.arkeo.network:26656,416bd4379fa4fa3e76e59e4415396f727463142e@seed.arkeo.network:26656"
-sed -i 's/seeds = ""/seeds = "ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:22856"/' ~/.arkeo/config/config.toml
-peers="e21ebcb0b2694e7b316f2f8de883300cffc93b32@peer1.arkeo.network:26656,..."
+sed -i -e "s|^seeds *=.*|seeds = \"$seeds\"|" $HOME/.arkeo/config/config.toml
+peers="e21ebcb0b2694e7b316f2f8de883300cffc93b32@peer1.arkeo.network:26656,b8653eecacbe3f413046beb0e8b53d8f520c925e@peer2.arkeo.network:26656,f3037b238720c022be888890b7d8ecb516ae2a05@peer3.arkeo.network:26656,2e0a5e51ae1eabf527eb54632feb6a90ae0704ba@204.16.245.181:26656,4b60b22753c88f3cd6ba42dae8170e1a22429e76@141.95.3.94:26656,56a47e4ad462edfba90d0409785bc56196fdf376@51.89.98.102:55926,57c53dc1149c8696c839fc5a230579327d650e4c@65.109.114.178:26656,637609e9fe4618fe1d5c7c3564dc9ce4678abf61@142.132.251.87:15856,beaf7267d852cfbaaaaccbc1f92e785e5e0f0420@18.218.164.255:26656,de8f228211e72e8bb206e4f0f5e6e703cb2505eb@95.217.36.103:26656,e077b7ffdfcd6ea6826a126d0003a98fe0218bf7@213.239.194.132:15856,e87f1d4cfa4b7c70defa93dffefc450e2a1c1dc4@44.240.61.167:26656,fc03a34ea37cee3d97391cee11bffc792560cd61@46.4.32.57:26656,a3998b8a50765975be2be59954db0f6de66f92e3@5.161.246.27:36657"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$peers\"|" $HOME/.arkeo/config/config.toml
 ```
 ---
@@ -117,24 +117,24 @@ sed -i \
 Меняем порты:
 ```bash
 export CUSTOM_PORT=163  # твой порт
-### config.toml ###
-sed -i -E "s%proxy_app = \".*\"%proxy_app = \"tcp://127.0.0.1:${CUSTOM_PORT}58\"%" $HOME/.arkeo/config/config.toml
-sed -i -E "s%laddr = \"tcp://127.0.0.1:[0-9]+\"%laddr = \"tcp://127.0.0.1:${CUSTOM_PORT}57\"%" $HOME/.arkeo/config/config.toml
-sed -i -E "s%pprof_laddr = \".*\"%pprof_laddr = \"localhost:${CUSTOM_PORT}60\"%" $HOME/.arkeo/config/config.toml
-sed -i -E "s%laddr = \"tcp://0.0.0.0:[0-9]+\"%laddr = \"tcp://0.0.0.0:${CUSTOM_PORT}56\"%" $HOME/.arkeo/config/config.toml
-sed -i -E "s%prometheus_listen_addr = \".*\"%prometheus_listen_addr = \":${CUSTOM_PORT}66\"%" $HOME/.arkeo/config/config.toml
-### app.toml ###
-sed -i -E "s%address = \"tcp://localhost:[0-9]+\"%address = \"tcp://localhost:${CUSTOM_PORT}17\"%" $HOME/.arkeo/config/app.toml
-sed -i -E "s%address = \":[0-9]+\"%address = \":${CUSTOM_PORT}80\"%" $HOME/.arkeo/config/app.toml
-sed -i -E "s%address = \"localhost:[0-9]+\"%address = \"localhost:${CUSTOM_PORT}90\"%" $HOME/.arkeo/config/app.toml
-sed -i -E "s%address = \"localhost:[0-9]+\"%address = \"localhost:${CUSTOM_PORT}91\"%" $HOME/.arkeo/config/app.toml
-sed -i -E "s%address = \"0.0.0.0:[0-9]+\"%address = \"0.0.0.0:${CUSTOM_PORT}45\"%" $HOME/.arkeo/config/app.toml
-sed -i -E "s%ws-address = \"0.0.0.0:[0-9]+\"%ws-address = \"0.0.0.0:${CUSTOM_PORT}46\"%" $HOME/.arkeo/config/app.toml
-### Настройка CLI адреса узла ###
+### Обновление config.toml ###
+sed -i -e "s%proxy_app = \".*\"%proxy_app = \"tcp://127.0.0.1:${CUSTOM_PORT}58\"%;
+s%laddr = \"tcp://127.0.0.1:.*\"%laddr = \"tcp://127.0.0.1:${CUSTOM_PORT}57\"%;
+s%pprof_laddr = \".*\"%pprof_laddr = \"localhost:${CUSTOM_PORT}60\"%;
+s%laddr = \"tcp://0.0.0.0:.*\"%laddr = \"tcp://0.0.0.0:${CUSTOM_PORT}56\"%;
+s%prometheus_listen_addr = \".*\"%prometheus_listen_addr = \":${CUSTOM_PORT}66\"%" $HOME/.arkeo/config/config.toml
+### Обновление app.toml ###
+sed -i -e "s%address = \"tcp://localhost:.*\"%address = \"tcp://localhost:${CUSTOM_PORT}17\"%;
+s%address = \":.*80\"%address = \":${CUSTOM_PORT}80\"%;
+s%address = \"localhost:.*90\"%address = \"localhost:${CUSTOM_PORT}90\"%;
+s%address = \"localhost:.*91\"%address = \"localhost:${CUSTOM_PORT}91\"%;
+s%address = \"0.0.0.0:.*45\"%address = \"0.0.0.0:${CUSTOM_PORT}45\"%;
+s%ws-address = \"0.0.0.0:.*46\"%ws-address = \"0.0.0.0:${CUSTOM_PORT}46\"%" $HOME/.arkeo/config/app.toml
+### Настройка CLI ###
 arkeod config set client node tcp://localhost:${CUSTOM_PORT}57
 ```
 ---
-## 💫 12. Подробная проверка с выводом строк и портов:
+## 💫 12. Подробная проверка с выводом строк и портов если хотите проверить:
 ```bash
 echo "config.toml — порты и адреса:"
 grep -E "proxy_app|laddr|pprof_laddr|prometheus_listen_addr" -n $HOME/.arkeo/config/config.toml
