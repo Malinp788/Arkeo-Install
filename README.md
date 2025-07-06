@@ -181,7 +181,7 @@ grep -E "address|ws-address" -n $HOME/.arkeo/config/app.toml
 ## 💖 16. Создание и управление кошельком
 ```bash
 arkeod keys add wallet               # Создать новый кошелёк
-```
+---
 ```bash
 arkeod keys add wallet --recover     # Восстановить из seed-фразы
 ```
