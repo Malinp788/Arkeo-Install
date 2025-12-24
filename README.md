@@ -42,7 +42,7 @@ rm -rf arkeo
 git clone https://github.com/arkeonetwork/arkeo
 cd arkeo
 git fetch --all
-git checkout v1.0.15
+git checkout v1.0.16
 make install
 /root/go/bin/arkeod version
 ```
